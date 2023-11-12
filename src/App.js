@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import Grid from './components/Grid';
+import Grid from './components/Grid.tsx';
 
 function App() {
   const [alreadyOnFire, setAlreadyOnFire] = useState(false); // This is used to prevent two forest fires from starting on the same roll

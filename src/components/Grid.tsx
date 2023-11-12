@@ -3,8 +3,11 @@ import Unit from './Unit.tsx';
 
 function Grid({ alreadyOnFire, setAlreadyOnFire }) {
     // const [units, setUnits] = useState<JSX.Element[]>([]);
+    const LENGTH = 15;
+    // user probability > 0.5 would be betting on the fire not spreading enough
+    const USER_PROBABILTY = 0.4;
     const [grid, setGrid] = useState(
-        Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false))
+        Array.from({ length: LENGTH }, () => Array.from({ length: LENGTH }, () => false))
     );
 
     useEffect(() => {
@@ -12,7 +15,7 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
         if (!alreadyOnFire) {
           // Reset the forest state
           setGrid(
-            Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false))
+            Array.from({ length: LENGTH }, () => Array.from({ length: LENGTH }, () => false))
           );
         }
       }, [alreadyOnFire]);  // Run the effect whenever alreadyOnFire changes
@@ -31,7 +34,7 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
             const nx = x + dx, ny = y + dy;
 
             // Check boundary
-            if (nx >= 0 && nx < 8 && ny >= 0 && ny < 8) {
+            if (nx >= 0 && nx < LENGTH && ny >= 0 && ny < LENGTH) {
                 // Calculate the probability based on the updated grid
                 const probability = calculateProbability(nx, ny);
                 // const probability = 0.5;
@@ -46,7 +49,10 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
         });
     };
 
-    
+    function calcBinomialDistOneSuccess(numTrials) {
+        // https://math.stackexchange.com/questions/3046029/binomial-distribution-unfair-coin
+        return 1 - Math.pow(1 - USER_PROBABILTY, numTrials);
+    }
 
     // function to calculate the probability of a fire spreading to a neighbor, based on the number of neighbors that are on fire
     function calculateProbability(x, y) {
@@ -55,7 +61,7 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
         [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(([dx, dy]) => {
             const nx = x + dx, ny = y + dy;
             // Check boundary
-            if (nx >= 0 && nx < 8 && ny >= 0 && ny < 8) {
+            if (nx >= 0 && nx < LENGTH && ny >= 0 && ny < LENGTH) {
                 if (grid[nx][ny]) {
                     neighborsOnFire++;
                 }
@@ -63,8 +69,8 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
         });
     
         // Calculate probability as a function of neighborsOnFire
-        // You can adjust this formula to fit your specific requirements
-        const probability = neighborsOnFire / 4;
+        // const probability = (neighborsOnFire / 4);
+        const probability = neighborsOnFire ? calcBinomialDistOneSuccess(neighborsOnFire) : 0;
         console.log(x, y, probability);
         return probability;
     }
@@ -95,8 +101,6 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
                                 alreadyOnFire={alreadyOnFire}
                                 setAlreadyOnFire={setAlreadyOnFire}
                                 probability={calculateProbability(x, y)} // Pass the calculated probability
-                                x={x}
-                                y={y}
                             />
                         ))}
                     </div>

@@ -5,7 +5,7 @@ import React from 'react';
 //   probability: string,
 // }
 
-function Unit({ setOnFire, onFire, alreadyOnFire, setAlreadyOnFire, probability, x, y }) {
+function Unit({ setOnFire, onFire, alreadyOnFire, setAlreadyOnFire, probability }) {
   const probToString = (probability * 100).toString() + '%';
   
 
