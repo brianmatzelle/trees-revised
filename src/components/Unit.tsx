@@ -51,7 +51,8 @@ function Unit(UnitProps: UnitProps): JSX.Element {
       }}
       >
         { !both && middleX && '-' }
-        { !both && middleY && '|' }
+        {/* for vertical: https://unicode.org/charts/nameslist/n_2500.html */}
+        { !both && middleY && '╹' }
         { both && '🔥' }
       </div>
     </div>
