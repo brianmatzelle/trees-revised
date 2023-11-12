@@ -1,14 +1,20 @@
 import React from 'react';
 
-// type UnitProps = {
-//   onFire: boolean,
-//   probability: string,
-// }
+type UnitProps = {
+  setOnFire: Function;
+  onFire: boolean;
+  alreadyOnFire: boolean;
+  setAlreadyOnFire: Function;
+  probability: number;
+  middleX: boolean;
+  middleY: boolean;
+}
 
-function Unit({ setOnFire, onFire, alreadyOnFire, setAlreadyOnFire, probability }) {
+function Unit(UnitProps: UnitProps): JSX.Element {
+  const { setOnFire, onFire, alreadyOnFire, setAlreadyOnFire, probability, middleX, middleY } = UnitProps;
+
   const probToString = (probability * 100).toString() + '%';
   
-
   return (
     <div
       onClick={() => {
@@ -19,7 +25,7 @@ function Unit({ setOnFire, onFire, alreadyOnFire, setAlreadyOnFire, probability 
         setAlreadyOnFire(true);
       }}
       style={{
-        border: onFire ? '1px solid red' :'1px solid green',
+        border: onFire ? '1px solid red' : '1px solid green',
         padding: '0px',
         margin: '0px',
         backgroundColor: '#282C34' , // If on fire, set to red, else green
@@ -43,12 +49,11 @@ function Unit({ setOnFire, onFire, alreadyOnFire, setAlreadyOnFire, probability 
         justifyContent: 'center',
       }}
       >
-        {/* { x + ', ' + y + ' p:' + probToString + ' f:' + onFire} */}
-        
+        {middleX && middleY && '🔥'}
       </div>
     </div>
   )
 }
 
 export default Unit;
-// export type { UnitProps };
+export type { UnitProps };

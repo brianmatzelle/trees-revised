@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Unit from './Unit.tsx';
 
 function Grid({ alreadyOnFire, setAlreadyOnFire }) {
-    // const [units, setUnits] = useState<JSX.Element[]>([]);
     const LENGTH = 15;
-    // user probability > 0.5 would be betting on the fire not spreading enough
-    const USER_PROBABILTY = 0.4;
+    const USER_PROBABILTY = 0.4;    // user probability > 0.5 would be betting on the fire not spreading enough
+    const DELAY = 200;  // Xms delay
+
     const [grid, setGrid] = useState(
         Array.from({ length: LENGTH }, () => Array.from({ length: LENGTH }, () => false))
     );
@@ -43,7 +43,7 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
                 if (Math.random() < probability) {
                     setTimeout(() => {
                         propagateFire(nx, ny);
-                    }, 200);  // 200ms delay
+                    }, DELAY);  // 200ms delay
                 }
             }
         });
@@ -71,11 +71,8 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
         // Calculate probability as a function of neighborsOnFire
         // const probability = (neighborsOnFire / 4);
         const probability = neighborsOnFire ? calcBinomialDistOneSuccess(neighborsOnFire) : 0;
-        console.log(x, y, probability);
         return probability;
     }
-    
-    
     
 
     return (
@@ -88,6 +85,7 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
             {grid.map((row, x) => {
                 return (
                     <div
+                        key={x}
                         style={{
                             display: 'flex',
                             flexDirection: 'row',
@@ -96,11 +94,14 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
                     >
                         {row.map((unit, y) => (
                             <Unit
-                                setOnFire={() => propagateFire(x, y)}
-                                onFire={unit}
-                                alreadyOnFire={alreadyOnFire}
-                                setAlreadyOnFire={setAlreadyOnFire}
-                                probability={calculateProbability(x, y)} // Pass the calculated probability
+                            key={`${x}-${y}`}
+                            setOnFire={() => propagateFire(x, y)}
+                            onFire={unit}
+                            alreadyOnFire={alreadyOnFire}
+                            setAlreadyOnFire={setAlreadyOnFire}
+                            probability={calculateProbability(x, y)}
+                            middleX={x === Math.floor(LENGTH / 2)}
+                            middleY={y === Math.floor(LENGTH / 2)}
                             />
                         ))}
                     </div>

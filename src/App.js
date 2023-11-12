@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Grid from './components/Grid.tsx';
 
 function App() {
@@ -14,7 +14,8 @@ function App() {
       width: '100vw',
       height: '100vh',
       backgroundColor: '#282C34',
-    }}>
+    }}
+    >
       <div style={{
         display: 'flex',
         flexDirection: 'row',
@@ -27,7 +28,10 @@ function App() {
           setAlreadyOnFire(false);
         }}
         >Reset</button>
-        <Grid alreadyOnFire={alreadyOnFire} setAlreadyOnFire={setAlreadyOnFire} />
+        <Grid 
+        alreadyOnFire={alreadyOnFire} 
+        setAlreadyOnFire={setAlreadyOnFire} 
+        />
       </div>
     </div>
   )
