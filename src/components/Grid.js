@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Unit from './Unit';
+import Unit from './Unit.tsx';
 
 function Grid({ alreadyOnFire, setAlreadyOnFire }) {
     // const [units, setUnits] = useState<JSX.Element[]>([]);
     const [grid, setGrid] = useState(
         Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false))
-    );
-    const [probabilities, setProbabilities] = useState(
-        Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => 0))
     );
 
     useEffect(() => {
@@ -29,14 +26,6 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
         newGrid[x][y] = true;
         setGrid(newGrid);
 
-        // Calculate probabilities for all cells in the grid
-        const updatedGrid = newGrid.map((row, rowIdx) =>
-            row.map((_, colIdx) => calculateProbability(colIdx, rowIdx, newGrid))
-        );
-
-        // Update the grid with the new probabilities
-        setGrid(updatedGrid);
-
         // For each of the 4 neighbors
         [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(([dx, dy]) => {
             const nx = x + dx, ny = y + dy;
@@ -44,7 +33,7 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
             // Check boundary
             if (nx >= 0 && nx < 8 && ny >= 0 && ny < 8) {
                 // Calculate the probability based on the updated grid
-                const probability = calculateProbability(nx, ny, updatedGrid);
+                const probability = calculateProbability(nx, ny);
                 // const probability = 0.5;
 
                 // Propagate fire with the calculated probability

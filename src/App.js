@@ -17,8 +17,16 @@ function App() {
     }}>
       <div style={{
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        width: '100vw',
       }}>
+        <button
+        onClick={() => {
+          setAlreadyOnFire(false);
+        }}
+        >Reset</button>
         <Grid alreadyOnFire={alreadyOnFire} setAlreadyOnFire={setAlreadyOnFire} />
       </div>
     </div>

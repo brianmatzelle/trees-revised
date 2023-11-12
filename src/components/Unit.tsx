@@ -30,7 +30,6 @@ function Unit({ setOnFire, onFire, alreadyOnFire, setAlreadyOnFire, probability,
         justifyContent: 'center',
       }}
     >
-      {/* {x + ', ' + y } */}
       <div
       style={{
         border: '0px',
@@ -44,7 +43,7 @@ function Unit({ setOnFire, onFire, alreadyOnFire, setAlreadyOnFire, probability,
         justifyContent: 'center',
       }}
       >
-        {'p:' + probToString + ' f:' + onFire}
+        {/* { x + ', ' + y + ' p:' + probToString + ' f:' + onFire} */}
         
       </div>
     </div>
