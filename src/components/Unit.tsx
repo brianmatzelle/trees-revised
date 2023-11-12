@@ -12,8 +12,8 @@ type UnitProps = {
 
 function Unit(UnitProps: UnitProps): JSX.Element {
   const { setOnFire, onFire, alreadyOnFire, setAlreadyOnFire, probability, middleX, middleY } = UnitProps;
-
   const probToString = (probability * 100).toString() + '%';
+  const both = middleX && middleY;
   
   return (
     <div
@@ -47,9 +47,12 @@ function Unit(UnitProps: UnitProps): JSX.Element {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        color: onFire ? 'red' : 'green',
       }}
       >
-        {middleX && middleY && '🔥'}
+        { !both && middleX && '-' }
+        { !both && middleY && '|' }
+        { both && '🔥' }
       </div>
     </div>
   )
