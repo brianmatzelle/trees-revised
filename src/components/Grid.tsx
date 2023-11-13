@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Unit from './Unit.tsx';
 
 function Grid({ alreadyOnFire, setAlreadyOnFire }) {
-    const LENGTH = 5;
+    const LENGTH = 15;
     const USER_PROBABILTY = 0.3;    // user probability > 0.5 would be betting on the fire not spreading enough
     const DELAY = 200;  // Xms delay
 
@@ -79,8 +79,8 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
         <div style={{
             display: 'flex',
             flexDirection: 'column',
-            width: '600px',
-            height: '600px',
+            width: '800px',
+            height: '800px',
         }}>
             {grid.map((row, x) => {
                 return (

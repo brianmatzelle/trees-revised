@@ -41,6 +41,7 @@ function Unit(UnitProps: UnitProps): JSX.Element {
     return `hsl(${hue}, 100%, 50%)`;
   }
 
+  // calculate the areas of the four quadrants surrounding the given x, y coordinates
   function calcAreas(x, y, length) {
     // let str = "x=" + x + ",y=" + y;
     const halfLen = Math.floor(length / 2);
@@ -48,8 +49,12 @@ function Unit(UnitProps: UnitProps): JSX.Element {
     const botLeft = (halfLen + x) * (halfLen + y);
     const topRight = (halfLen - x) * (halfLen - y);
     const topLeft = (halfLen + x) * (halfLen - y);
-    const str = botRight + ',' + botLeft + ',' + topRight + ',' + topLeft;
-    return str;
+    // const str = botRight + ',' + botLeft + ',' + topRight + ',' + topLeft;
+    // calculate the range of the areas
+    const max = Math.max(botRight, botLeft, topRight, topLeft);
+    const min = Math.min(botRight, botLeft, topRight, topLeft);
+    const range = max - min;
+    return range/(length-1);
   }
 
 
@@ -89,8 +94,8 @@ function Unit(UnitProps: UnitProps): JSX.Element {
       }}
       >
         {/* { x + ',' + y + '\n' } */}
-        {/* {calcAreas(x, y, length)} */}
-        { getLabel() }
+        {calcAreas(x, y, length)}
+        {/* { getLabel() } */}
       </div>
     </div>
   )
