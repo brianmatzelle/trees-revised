@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Unit from './Unit.tsx';
 
 function Grid({ alreadyOnFire, setAlreadyOnFire }) {
-    const LENGTH = 9;
-    const USER_PROBABILTY = 0.3;    // user probability > 0.5 would be betting on the fire not spreading enough
+    const LENGTH = 5;
+    const USER_PROBABILTY = 0.4;    // user probability > 0.5 would be betting on the fire not spreading enough
     const DELAY = 200;  // Xms delay
 
     const [grid, setGrid] = useState(
