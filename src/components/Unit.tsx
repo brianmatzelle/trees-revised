@@ -64,8 +64,8 @@ function Unit(UnitProps: UnitProps): JSX.Element {
         // setOnFire(true);
         if (!onFire && !alreadyOnFire) {
           setOnFire(true);
+          setAlreadyOnFire(true);
         }
-        setAlreadyOnFire(true);
       }}
       style={{
         border: onFire ? '1px solid red' : '1px solid green',
@@ -94,7 +94,7 @@ function Unit(UnitProps: UnitProps): JSX.Element {
       }}
       >
         {/* { x + ',' + y + '\n' } */}
-        {calcAreas(x, y, length)}
+        {String.fromCharCode(97 + calcAreas(x, y, length))}
         {/* { getLabel() } */}
       </div>
     </div>
