@@ -41,6 +41,17 @@ function Unit(UnitProps: UnitProps): JSX.Element {
     return `hsl(${hue}, 100%, 50%)`;
   }
 
+  function calcAreas(x, y, length) {
+    // let str = "x=" + x + ",y=" + y;
+    const halfLen = Math.floor(length / 2);
+    const botRight = (halfLen - x) * (halfLen + y);
+    const botLeft = (halfLen + x) * (halfLen + y);
+    const topRight = (halfLen - x) * (halfLen - y);
+    const topLeft = (halfLen + x) * (halfLen - y);
+    const str = botRight + ',' + botLeft + ',' + topRight + ',' + topLeft;
+    return str;
+  }
+
 
   return (
     <div
@@ -77,7 +88,8 @@ function Unit(UnitProps: UnitProps): JSX.Element {
         color: onFire ? 'red' : getCircularGradientColor(x, y, length),
       }}
       >
-        { x + ',' + y + '\n' }
+        {/* { x + ',' + y + '\n' } */}
+        {/* {calcAreas(x, y, length)} */}
         { getLabel() }
       </div>
     </div>
