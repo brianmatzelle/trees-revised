@@ -102,6 +102,9 @@ function Grid({ alreadyOnFire, setAlreadyOnFire }) {
                             probability={calculateProbability(x, y)}
                             middleX={x === Math.floor(LENGTH / 2)}
                             middleY={y === Math.floor(LENGTH / 2)}
+                            x={x}
+                            y={y}
+                            length={LENGTH}
                             />
                         ))}
                     </div>
